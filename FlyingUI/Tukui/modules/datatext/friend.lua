@@ -30,7 +30,7 @@ Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
 local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "THINOUTLINE")
+Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "MONOCHROME")
 Text:SetShadowOffset(T.mult, -T.mult)
 T.PP(C["datatext"].friends, Text)
 local c = T.oUF_colors.class[T.myclass]

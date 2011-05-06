@@ -140,19 +140,22 @@ local function Shared(self, unit)
 		elseif unit == "target" then
 			power:Point("TOPRIGHT", health, "TOPRIGHT", 2, 2)
 		end
+		
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
 		powerBG:SetTexture(normTex)
 		powerBG.multiplier = 0.3
 		
-		if unit == "player" then
 		power.value = T.SetFontString(health, font1, 12, "OUTLINE")
 		power.value:Point("LEFT", health, "LEFT", 4, 0)
 		power.PreUpdate = T.PreUpdatePower
 		power.PostUpdate = T.PostUpdatePower
-		end
 				
 		self.Power = power
 		self.Power.bg = powerBG
@@ -168,7 +171,7 @@ local function Shared(self, unit)
 			power.colorTapping = true
 			power.colorClass = true
 			powerBG.multiplier = 0.1	
-			powerBG:SetVertexColor(1, 0, 0, 0.5)
+			powerBG:SetVertexColor(1, 0, 0, 0.1)
 		else
 			power.colorPower = true
 		end
@@ -599,7 +602,7 @@ local function Shared(self, unit)
 			Name:SetJustifyH("LEFT")
 			Name:SetFont(font1, 12, "OUTLINE")
 
-			self:Tag(Name, '[Tukui:getnamecolor][Tukui:nameshort] [Tukui:diffcolor][level] [shortclassification]')
+			self:Tag(Name, '[Tukui:getnamecolor][Tukui:nameshort] [Tukui:diffcolor][shortclassification]')
 			self.Name = Name
 			
 			-- combo points on target
@@ -900,7 +903,11 @@ local function Shared(self, unit)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:Size(105, 20)
 		power:Point("TOPLEFT", health, "TOPLEFT", -2, 2)
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -1024,7 +1031,11 @@ local function Shared(self, unit)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:Size(105, 20)
 		power:Point("TOPLEFT", health, "TOPLEFT", -2, 2)
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		power.frequentUpdates = true
 		power.colorPower = true
@@ -1159,7 +1170,11 @@ local function Shared(self, unit)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:Size(205, 29)
 		power:Point("TOPLEFT", health, "TOPLEFT", -2, 2)
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -1180,7 +1195,7 @@ local function Shared(self, unit)
 			power.colorTapping = true
 			power.colorClass = true
 			powerBG.multiplier = 0.1	
-			powerBG:SetVertexColor(1, 0, 0, 0.5)
+			powerBG:SetVertexColor(1, 0, 0, 0.1)
 		else
 			power.colorPower = true
 		end
@@ -1207,7 +1222,7 @@ local function Shared(self, unit)
 		local debuffs = CreateFrame("Frame", nil, self)
 		debuffs:SetHeight(26)
 		debuffs:SetWidth(200)
-		debuffs:Point('RIGHT', self, 'LEFT', -4, 0)
+		debuffs:Point('RIGHT', self, 'LEFT', -6, 0)
 		debuffs.size = 26
 		debuffs.num = 5
 		debuffs.spacing = 2
@@ -1218,8 +1233,8 @@ local function Shared(self, unit)
 		self.Debuffs = debuffs
 		
 		local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
-		castbar:SetPoint("LEFT", 2, 0)
-		castbar:SetPoint("RIGHT", -24, 0)
+		castbar:SetPoint("LEFT", 0, 0)
+		castbar:SetPoint("RIGHT", 0, 0)
 		castbar:SetPoint("BOTTOM", 0, -22)
 		
 		castbar:SetHeight(16)
@@ -1227,19 +1242,18 @@ local function Shared(self, unit)
 		castbar:SetFrameLevel(6)
 		
 		castbar.bg = CreateFrame("Frame", nil, castbar)
-		castbar.bg:SetTemplate("Default")
-		castbar.bg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
+		castbar.bg:SetTemplate("Transparent")
 		castbar.bg:Point("TOPLEFT", -2, 2)
 		castbar.bg:Point("BOTTOMRIGHT", 2, -2)
 		castbar.bg:SetFrameLevel(5)
 		
-		castbar.time = T.SetFontString(castbar, font1, 12)
+		castbar.time = T.SetFontString(castbar, font1, 12, "OUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 		castbar.time:SetTextColor(0.84, 0.75, 0.65)
 		castbar.time:SetJustifyH("RIGHT")
 		castbar.CustomTimeText = T.CustomCastTimeText
 
-		castbar.Text = T.SetFontString(castbar, font1, 12)
+		castbar.Text = T.SetFontString(castbar, font1, 12, "OUTLINE")
 		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 		
@@ -1247,16 +1261,6 @@ local function Shared(self, unit)
 		castbar.PostCastStart = T.CheckCast
 		castbar.PostChannelStart = T.CheckChannel
 								
-		castbar.button = CreateFrame("Frame", nil, castbar)
-		castbar.button:Height(castbar:GetHeight()+4)
-		castbar.button:Width(castbar:GetHeight()+4)
-		castbar.button:Point("LEFT", castbar, "RIGHT", 4, 0)
-		castbar.button:SetTemplate("Default")
-		castbar.button:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
-		castbar.icon = castbar.button:CreateTexture(nil, "ARTWORK")
-		castbar.icon:Point("TOPLEFT", castbar.button, 2, -2)
-		castbar.icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
-		castbar.icon:SetTexCoord(0.08, 0.92, 0.08, .92)
 
 		self.Castbar = castbar
 		self.Castbar.Time = castbar.time
@@ -1324,7 +1328,11 @@ local function Shared(self, unit)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:Size(205, 29)
 		power:Point("TOPLEFT", health, "TOPLEFT", -2, 2)
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -1345,7 +1353,7 @@ local function Shared(self, unit)
 			power.colorTapping = true
 			power.colorClass = true
 			powerBG.multiplier = 0.1	
-			powerBG:SetVertexColor(1, 0, 0, 0.5)
+			powerBG:SetVertexColor(1, 0, 0, 0.1)
 		else
 			power.colorPower = true
 		end
@@ -1383,8 +1391,8 @@ local function Shared(self, unit)
 		self.Debuffs = debuffs
 		
 		local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
-		castbar:SetPoint("LEFT", 2, 0)
-		castbar:SetPoint("RIGHT", -24, 0)
+		castbar:SetPoint("LEFT", 0, 0)
+		castbar:SetPoint("RIGHT", 0, 0)
 		castbar:SetPoint("BOTTOM", 0, -22)
 		
 		castbar:SetHeight(16)
@@ -1392,36 +1400,25 @@ local function Shared(self, unit)
 		castbar:SetFrameLevel(6)
 		
 		castbar.bg = CreateFrame("Frame", nil, castbar)
-		castbar.bg:SetTemplate("Default")
-		castbar.bg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
+		castbar.bg:SetTemplate("Transparent")
 		castbar.bg:Point("TOPLEFT", -2, 2)
 		castbar.bg:Point("BOTTOMRIGHT", 2, -2)
 		castbar.bg:SetFrameLevel(5)
 		
-		castbar.time = T.SetFontString(castbar, font1, 12)
+		castbar.time = T.SetFontString(castbar, font1, 12, "OUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 		castbar.time:SetTextColor(0.84, 0.75, 0.65)
 		castbar.time:SetJustifyH("RIGHT")
 		castbar.CustomTimeText = T.CustomCastTimeText
 
-		castbar.Text = T.SetFontString(castbar, font1, 12)
-		castbar.Text:Point("LEFT", castbar, "LEFT", 4, 0)
+		castbar.Text = T.SetFontString(castbar, font1, 12, "OUTLINE")
+		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 		
 		castbar.CustomDelayText = T.CustomCastDelayText
 		castbar.PostCastStart = T.CheckCast
 		castbar.PostChannelStart = T.CheckChannel
 								
-		castbar.button = CreateFrame("Frame", nil, castbar)
-		castbar.button:Height(castbar:GetHeight()+4)
-		castbar.button:Width(castbar:GetHeight()+4)
-		castbar.button:Point("LEFT", castbar, "RIGHT", 4, 0)
-		castbar.button:SetTemplate("Default")
-		castbar.button:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
-		castbar.icon = castbar.button:CreateTexture(nil, "ARTWORK")
-		castbar.icon:Point("TOPLEFT", castbar.button, 2, -2)
-		castbar.icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
-		castbar.icon:SetTexCoord(0.08, 0.92, 0.08, .92)
 
 		self.Castbar = castbar
 		self.Castbar.Time = castbar.time
@@ -1492,7 +1489,11 @@ local function Shared(self, unit)
 		local power = CreateFrame('StatusBar', nil, self)
 		power:Size(205, 29)
 		power:Point("TOPLEFT", health, "TOPLEFT", -2, 2)
+		if C["unitframes"].darkpower == true then
+		power:SetStatusBarTexture(normTex)
+		else
 		power:SetStatusBarTexture(blank)
+		end
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -1513,7 +1514,7 @@ local function Shared(self, unit)
 			power.colorTapping = true
 			power.colorClass = true
 			powerBG.multiplier = 0.1	
-			powerBG:SetVertexColor(1, 0, 0, 0.5)
+			powerBG:SetVertexColor(1, 0, 0, 0.1)
 		else
 			power.colorPower = true
 		end
@@ -1564,7 +1565,7 @@ local function Shared(self, unit)
 			local buffs = CreateFrame("Frame", nil, self)
 			buffs:SetHeight(26)
 			buffs:SetWidth(252)
-			buffs:Point("RIGHT", self, "LEFT", -4, 0)
+			buffs:Point("RIGHT", self, "LEFT", -6, 0)
 			buffs.size = 26
 			buffs.num = 3
 			buffs.spacing = 2
@@ -1582,7 +1583,7 @@ local function Shared(self, unit)
 		local debuffs = CreateFrame("Frame", nil, self)
 		debuffs:SetHeight(26)
 		debuffs:SetWidth(200)
-		debuffs:Point('LEFT', self, 'RIGHT', 4, 0)
+		debuffs:Point('LEFT', self, 'RIGHT', 6, 0)
 		debuffs.size = 26
 		debuffs.num = 5
 		debuffs.spacing = 2
@@ -1612,9 +1613,9 @@ local function Shared(self, unit)
 		end
 		
 		-- boss & arena frames cast bar!
-		local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
-		castbar:SetPoint("LEFT", 24, 0)
-		castbar:SetPoint("RIGHT", -2, 0)
+	local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
+		castbar:SetPoint("LEFT", 0, 0)
+		castbar:SetPoint("RIGHT", 0, 0)
 		castbar:SetPoint("BOTTOM", 0, -22)
 		
 		castbar:SetHeight(16)
@@ -1622,36 +1623,25 @@ local function Shared(self, unit)
 		castbar:SetFrameLevel(6)
 		
 		castbar.bg = CreateFrame("Frame", nil, castbar)
-		castbar.bg:SetTemplate("Default")
-		castbar.bg:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
+		castbar.bg:SetTemplate("Transparent")
 		castbar.bg:Point("TOPLEFT", -2, 2)
 		castbar.bg:Point("BOTTOMRIGHT", 2, -2)
 		castbar.bg:SetFrameLevel(5)
 		
-		castbar.time = T.SetFontString(castbar, font1, 12)
+		castbar.time = T.SetFontString(castbar, font1, 12, "OUTLINE")
 		castbar.time:Point("RIGHT", castbar, "RIGHT", -4, 0)
 		castbar.time:SetTextColor(0.84, 0.75, 0.65)
 		castbar.time:SetJustifyH("RIGHT")
 		castbar.CustomTimeText = T.CustomCastTimeText
 
-		castbar.Text = T.SetFontString(castbar, font1, 12)
-		castbar.Text:Point("LEFT", castbar, "LEFT", 4, 0)
+		castbar.Text = T.SetFontString(castbar, font1, 12, "OUTLINE")
+		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 		
 		castbar.CustomDelayText = T.CustomCastDelayText
 		castbar.PostCastStart = T.CheckCast
 		castbar.PostChannelStart = T.CheckChannel
 								
-		castbar.button = CreateFrame("Frame", nil, castbar)
-		castbar.button:Height(castbar:GetHeight()+4)
-		castbar.button:Width(castbar:GetHeight()+4)
-		castbar.button:Point("RIGHT", castbar, "LEFT",-4, 0)
-		castbar.button:SetTemplate("Default")
-		castbar.button:SetBackdropBorderColor(unpack(C["media"].altbordercolor))
-		castbar.icon = castbar.button:CreateTexture(nil, "ARTWORK")
-		castbar.icon:Point("TOPLEFT", castbar.button, 2, -2)
-		castbar.icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
-		castbar.icon:SetTexCoord(0.08, 0.92, 0.08, .92)
 
 		self.Castbar = castbar
 		self.Castbar.Time = castbar.time

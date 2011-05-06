@@ -19,7 +19,7 @@ if C["datatext"].micromenu and C["datatext"].micromenu > 0 then
 	Stat:SetFrameLevel(3)
 
 	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "THINOUTLINE")
+	Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "MONOCHROME")
 	T.PP(C["datatext"].micromenu, Text)
 	local c = T.oUF_colors.class[T.myclass]
 	Text:SetTextColor(c[1], c[2], c[3])

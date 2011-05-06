@@ -13,7 +13,7 @@ Stat:EnableMouse(true)
 Stat.tooltip = false
 
 local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "THINOUTLINE")
+Text:SetFont(C.media.pixelfont, C["datatext"].fontsize, "MONOCHROME")
 T.PP(C["datatext"].system, Text)
 local c = T.oUF_colors.class[T.myclass]
 	Text:SetTextColor(c[1], c[2], c[3])

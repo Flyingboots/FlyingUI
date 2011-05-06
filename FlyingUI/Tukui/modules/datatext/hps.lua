@@ -10,7 +10,7 @@ if C["datatext"].hps_text and C["datatext"].hps_text > 0 then
 	local actual_heals_total, cmbt_time = 0
  
 	local hText = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	hText:SetFont(C.media.pixelfont, C["datatext"].fontsize, "THINOUTLINE")
+	hText:SetFont(C.media.pixelfont, C["datatext"].fontsize, "MONOCHROME")
 	hText:SetText("0.0 ",L.datatext_hps)
 	local c = T.oUF_colors.class[T.myclass]
 	hText:SetTextColor(c[1], c[2], c[3])

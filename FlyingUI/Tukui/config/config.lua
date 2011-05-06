@@ -35,6 +35,8 @@ C["unitframes"] = {
 	["onlyselfdebuffs"] = false,                        -- display only our own debuffs applied on target
 	["showfocustarget"] = true,                         -- show focus target
 	["bordercolor"] = { .4,.4,.4 },                     -- unit frames panel border color
+	
+	["darkpower"] = false, 								--Makes the power bar a little darker for those who wants it.
 
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               -- show range opacity on raidframes
@@ -124,7 +126,7 @@ C["datatext"] = {
 	["battleground"] = true,                            -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = true,                                  -- set time to 24h format.
 	["localtime"] = false,                              -- set time to local time instead of server time.
-	["fontsize"] = 12,                                  -- font size for panels.
+	["fontsize"] = 11,                                  -- font size for panels.
 }
 
 C["chat"] = {
