@@ -11,6 +11,7 @@ if not C["unitframes"].enable == true then return end
 local font2 = C["media"].uffont
 local font1 = C["media"].font
 local normTex = C["media"].normTex
+local blank = C["media"].blank
 
 local function Shared(self, unit)
 	self.colors = T.oUF_colors
@@ -70,7 +71,7 @@ local function Shared(self, unit)
 	local power = CreateFrame("StatusBar", nil, self)
 	power:Size(65, 25)
 	power:Point("TOPLEFT", health, "TOPLEFT", -2,2 )
-	power:SetStatusBarTexture(normTex)
+	power:SetStatusBarTexture(blank)
 	self.Power = power
 
 	power.frequentUpdates = true
